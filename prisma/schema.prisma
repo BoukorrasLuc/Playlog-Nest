@@ -10,11 +10,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-  output   = "../prisma/ERD.svg"
-  theme    = "dark"
-}
 
 model User {
   id          Int              @id @default(autoincrement())
