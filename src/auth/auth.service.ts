@@ -1,5 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { SignupDto } from './dto/signupDto';
+import { SigninDto } from './dto/signinDto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 
@@ -21,9 +22,14 @@ export class AuthService {
     await this.prismaService.user.create({
       data: { email, pseudo, password: hash },
     });
+    // Todo renvoyé un email de confirmation.
     // retourner une réponse de succès
     return {
       message: 'User created successfully',
     };
+  }
+
+  async signin(SigninDto: SigninDto) {
+   // Future fonction
   }
 }
