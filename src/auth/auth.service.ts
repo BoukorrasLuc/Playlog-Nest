@@ -56,7 +56,7 @@ export class AuthService {
     if (!validPassword)
       throw new BadRequestException('Invalid email or password');
 
-    const token = this.generateToken(user);
+    const token = await this.generateToken(user);
 
     return {
       token,
