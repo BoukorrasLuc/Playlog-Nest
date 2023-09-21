@@ -3,13 +3,18 @@ import {
   ConflictException,
   Injectable,
 } from '@nestjs/common';
-import { SignupDto } from './dto/signupDto';
-import { SigninDto } from './dto/signinDto';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+
 import { User } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+
+import { SignupDto } from './dto/signupDto';
+import { SigninDto } from './dto/signinDto';
+import getCleanUser from 'src/utils/getCleanUser';
+
+const INVALID_CREDENTIALS = 'Invalid email or password';
 
 @Injectable()
 export class AuthService {
@@ -18,10 +23,12 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
   ) {}
+
+
   async signup(SignupDto: SignupDto) {
     const { email, password, pseudo } = SignupDto;
 
-    const user = await this.prismaService.user.findUnique({
+    let user = await this.prismaService.user.findUnique({
       where: {
         email,
       },
@@ -30,12 +37,15 @@ export class AuthService {
 
     const hash = await bcrypt.hash(password, 10);
 
-    await this.prismaService.user.create({
+    
+
+    const createdUser = await this.prismaService.user.create({
       data: { email, pseudo, password: hash },
     });
     // Todo renvoyé un email de confirmation.
 
     return {
+      user: getCleanUser(createdUser),
       message: 'User created successfully',
     };
   }
@@ -49,18 +59,18 @@ export class AuthService {
       },
     });
 
-    if (!user) throw new BadRequestException('Invalid email or password');
+    if (!user) throw new BadRequestException(INVALID_CREDENTIALS);
 
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword)
-      throw new BadRequestException('Invalid email or password');
+      throw new BadRequestException(INVALID_CREDENTIALS);
 
     const token = await this.generateToken(user);
 
     return {
       token,
-      user,
+      user: getCleanUser(user) 
     };
   }
 
