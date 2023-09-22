@@ -24,28 +24,24 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-
   async signup(SignupDto: SignupDto) {
     const { email, password, pseudo } = SignupDto;
 
-    let user = await this.prismaService.user.findUnique({
+    const userExists = await this.prismaService.user.findUnique({
       where: {
         email,
       },
     });
-    if (user) throw new ConflictException('User already exists');
+    if (userExists) throw new ConflictException('User already exists');
 
-    const hash = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    
-
-    const createdUser = await this.prismaService.user.create({
-      data: { email, pseudo, password: hash },
+    const newUser = await this.prismaService.user.create({
+      data: { email, pseudo, password: hashedPassword },
     });
-    // Todo renvoyé un email de confirmation.
 
     return {
-      user: getCleanUser(createdUser),
+      user: getCleanUser(newUser),
       message: 'User created successfully',
     };
   }
@@ -61,9 +57,9 @@ export class AuthService {
 
     if (!user) throw new BadRequestException(INVALID_CREDENTIALS);
 
-    const validPassword = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    if (!validPassword)
+    if (!isPasswordValid)
       throw new BadRequestException(INVALID_CREDENTIALS);
 
     const token = await this.generateToken(user);
