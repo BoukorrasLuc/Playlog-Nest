@@ -21,4 +21,8 @@ export class SystemService {
   async deleteById(id: string) {
     return this.prisma.system.delete({ where: { id } });
   }
+
+  async create(data: CreateSystemDto) {
+    return this.prisma.system.create({ data });
+  }
 }

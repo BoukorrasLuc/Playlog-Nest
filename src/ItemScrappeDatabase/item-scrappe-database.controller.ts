@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Put, Body, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Put, Body, Delete, Post} from '@nestjs/common';
 import { ItemScrappeDatabaseService } from './item-scrappe-database.service';
 import { ItemScrappeDatabaseDto } from './dto/item-scrappe-database.dto';
 
@@ -24,5 +24,10 @@ export class ItemScrappeDatabaseController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.itemScrappeDatabaseService.remove(id);
+  }
+
+  @Post()
+  create(@Body() itemScrappeDatabaseDto: ItemScrappeDatabaseDto) {
+    return this.itemScrappeDatabaseService.create(itemScrappeDatabaseDto);
   }
 }

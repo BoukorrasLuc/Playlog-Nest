@@ -1,5 +1,5 @@
 // system.controller.ts
-import { Controller, Get, Param, Put, Body, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Put, Body, Delete, Post } from '@nestjs/common';
 import { SystemService } from '../system/system.service';
 import { CreateSystemDto, UpdateSystemDto } from './dto/system.dto';
 
@@ -25,5 +25,10 @@ export class SystemController {
   @Delete(':id')
   deleteById(@Param('id') id: string) {
     return this.systemService.deleteById(id);
+  }
+
+  @Post() 
+  create(@Body() CreateSystemDto: CreateSystemDto){
+    return this.systemService.create(CreateSystemDto);
   }
 }

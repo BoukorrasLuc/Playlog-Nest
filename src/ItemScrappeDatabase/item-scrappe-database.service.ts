@@ -21,4 +21,8 @@ export class ItemScrappeDatabaseService {
   remove(id: string) {
     return this.prisma.itemScrappeDatabase.delete({ where: { id } });
   }
+
+  create(data: ItemScrappeDatabaseDto) {
+    return this.prisma.itemScrappeDatabase.create({ data });
+  }
 }

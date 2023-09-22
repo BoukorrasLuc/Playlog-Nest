@@ -21,4 +21,8 @@ export class UserCollectionService {
   remove(id: number) {
     return this.prisma.userCollection.delete({ where: { id } });
   }
+
+  create(data: UserCollectionDto) {
+    return this.prisma.userCollection.create({ data });
+  }
 }
