@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserCollectionModule } from './user-collection/user-collection.module';
 import { ItemScrappeDatabaseModule } from './ItemScrappeDatabase/item-scrappe-database.module';
 import { SystemModule } from './system/system.module';
+import { GameModule } from './game/game.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { SystemModule } from './system/system.module';
     PrismaModule,
     UserCollectionModule,
     ItemScrappeDatabaseModule,
-    SystemModule
+    SystemModule,
+    GameModule,
   ],
 })
 export class AppModule {}
