@@ -10,8 +10,8 @@ import * as bcrypt from 'bcrypt';
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
-import { SignupDto } from './dto/signupDto';
-import { SigninDto } from './dto/signinDto';
+import { SignupDto } from './dto/signup.dto';
+import { SigninDto } from './dto/signin.dto';
 import getCleanUser from 'src/utils/getCleanUser';
 
 const INVALID_CREDENTIALS = 'Invalid email or password';
