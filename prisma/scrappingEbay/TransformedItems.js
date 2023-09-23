@@ -16,30 +16,7 @@ The path where the output file will be saved.
 @constant {string}
 */
 
-const outputFilePath = path.join(
-  __dirname,
-  './DataScrapped-V2.js',
-);
-
-/**
-
-The month number from the name of the month.
-@constant {object}
-*/
-const months = {
-  janv: 0,
-  févr: 1,
-  mars: 2,
-  avril: 3,
-  mai: 4,
-  juin: 5,
-  juillet: 6,
-  août: 7,
-  septembre: 8,
-  octobre: 9,
-  novembre: 10,
-  décembre: 11,
-};
+const outputFilePath = path.join(__dirname, './DataScrapped-V2.js');
 
 /**
 
@@ -50,24 +27,6 @@ Returns a new object with only relevant data from a scrapped object.
 */
 
 const transformItem = (item) => {
-  const dateStr = item.date;
-
-  let matchDate = null;
-  if (dateStr) {
-    matchDate = dateStr.match(/Vendu (\d{1,2}) ([a-zéû]+)(?:\.)?\s+(\d{4})/i);
-  }
-
-  let day = null;
-  let month = null;
-  let year = null;
-  let timestamp = null;
-  if (matchDate) {
-    day = parseInt(matchDate[1], 10);
-    month = months[matchDate[2]];
-    year = parseInt(matchDate[3], 10);
-    timestamp = Date.UTC(year, month, day);
-  }
-
   const regexZone = /(pal|ntsc-j|jap|japan)/i;
   const matchTitleZone = item.name.match(regexZone);
 
@@ -77,7 +36,8 @@ const transformItem = (item) => {
   const regexCondition = /(très bon état|tres bon etat|tbe|be|mint|cib)/i;
   const matchCondition = item.name.match(regexCondition);
 
-  const regexDeleteElementOfTitle = /nintendo|complete|complet|-|jeux|jeu|pal|nus|ntsc-j|japan|fah|fra|boîte|notice|n64|64|ovp|fr|32x|cib|32 x|(\(|\))|,|retrogaming|32 x|tbe|be|euro|eur|version|neu|japon|jap|limited edition|collector|deluxe|en boite|boite|\b(19[89]\d|2000)\b|\//gi;
+  const regexDeleteElementOfTitle =
+    /nintendo|complete|complet|-|jeux|jeu|pal|nus|ntsc-j|japan|fah|fra|boîte|notice|n64|64|ovp|fr|32x|cib|32 x|(\(|\))|,|retrogaming|32 x|tbe|be|euro|eur|version|neu|japon|jap|limited edition|collector|deluxe|en boite|boite|\b(19[89]\d|2000)\b|\//gi;
   const newTitle = item.name.replace(regexDeleteElementOfTitle, '').trim();
 
   const regexConsoleOfTitle = /\bNintendo\s*64\b/i;
@@ -99,8 +59,8 @@ const transformItem = (item) => {
           result += `${currentWord} `;
         }
       } else if (
-        currentWord.trim().length === 0
-        && !lastWordHasMoreThanTwoSpaces
+        currentWord.trim().length === 0 &&
+        !lastWordHasMoreThanTwoSpaces
       ) {
         lastWordHasMoreThanTwoSpaces = true;
       }
@@ -132,7 +92,7 @@ const transformItem = (item) => {
     id: uuid.v4(),
     title: capitalizeFirstLetterOfEachWord(getSpecificText(newTitle)),
     priceSold: item.price ? item.price.split(' ')[0] : null,
-    dateSold: matchDate ? new Date(timestamp) : null,
+    dateSold: item.date ? item.date : null,
     condition: matchCondition
       ? capitalizeFirstLetterOfEachWord(replaceEtat(matchCondition[0]))
       : null,
@@ -146,11 +106,11 @@ const transformItem = (item) => {
     console: matchConsoleOfTitle
       ? capitalizeFirstLetterOfEachWord('Nintendo 64')
       : null,
-    dateListed: item.date, // Added date listed from Scrappe.js
   };
 };
 
-const transformItems = (items) => items.filter((item) => item.country !== 'de États-Unis').map(transformItem);
+const transformItems = (items) =>
+  items.filter((item) => item.country !== 'de États-Unis').map(transformItem);
 
 const writeToFile = (filePath, data) => {
   fs.writeFile(filePath, data, (err) => {
