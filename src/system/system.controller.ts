@@ -1,4 +1,3 @@
-// system.controller.ts
 import { Controller, Get, Param, Put, Body, Delete, Post } from '@nestjs/common';
 import { SystemService } from '../system/system.service';
 import { CreateSystemDto, UpdateSystemDto } from './dto/system.dto';

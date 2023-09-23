@@ -7,6 +7,7 @@ import { ItemScrappeDatabaseModule } from './ItemScrappeDatabase/item-scrappe-da
 import { SystemModule } from './system/system.module';
 import { GameModule } from './game/game.module';
 import { AccessoryModule } from './accessory/accessory.module';
+import { PriceDataModule } from './priceData/priceData.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AccessoryModule } from './accessory/accessory.module';
     SystemModule,
     GameModule,
     AccessoryModule,
+    PriceDataModule,
   ],
 })
 export class AppModule {}
