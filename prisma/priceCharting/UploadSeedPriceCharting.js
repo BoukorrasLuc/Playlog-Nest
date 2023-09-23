@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-// const { console } = require("../../utils/console");
+const { logger } = require("../../src/utils/logger");
 const fs = require("fs");
 const path = require("path");
 
@@ -21,9 +21,9 @@ async function seedData() {
       await processFileData(prisma, data);
     }
 
-    console.info("[seedData] Successfully seeded database.");
+    logger.info("[seedData] Successfully seeded database.");
   } catch (error) {
-    console.error(`[seedData] Error seeding data: ${error.message}`);
+    logger.error(`[seedData] Error seeding data: ${error.message}`);
   } finally {
     await prisma.$disconnect();
   }
@@ -71,7 +71,7 @@ async function processFileData(prisma, data) {
       });
 
       if (existingItem) {
-        console.info(
+        logger.info(
           `[seedData][Systems] Item with ID ${id} already exists, skipping.`
         );
         continue;
@@ -102,7 +102,7 @@ async function processFileData(prisma, data) {
       });
 
       if (existingItem) {
-        console.info(
+        logger.info(
           `[seedData][Accessories] Item with ID ${id} already exists, skipping.`
         );
         continue;
@@ -114,7 +114,7 @@ async function processFileData(prisma, data) {
         create: itemData,
       });
 
-      console.info(
+      logger.info(
         `[seedData][Accessories] Upserted item with ID ${upsertedItem.id}.`
       );
     }
@@ -152,7 +152,7 @@ async function processFileData(prisma, data) {
         });
 
         if (existingItem) {
-          console.info(
+          logger.info(
             `[seedData][Game] Item with ID ${id} already exists, skipping.`
           );
           continue;
@@ -164,7 +164,7 @@ async function processFileData(prisma, data) {
           create: itemData,
         });
 
-        console.info(
+        logger.info(
           `[seedData][Game] Upserted item with ID ${upsertedItem.id}.`
         );
       }
