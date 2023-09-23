@@ -4,7 +4,6 @@ const fs = require('fs');
 const { logger } = require('../../src/utils/logger');
 
 /**
-
 This script scrapes eBay to retrieve sold items matching certain search criteria and saves them to a file
 @module scrapeSoldItems
 */
@@ -17,7 +16,6 @@ const SEARCH_CONFIG = {
 };
 
 /**
-
 Search criteria configuration object
 @typedef {Object} SearchConfig
 @property {string} title - the title of the item to search for
@@ -26,7 +24,6 @@ Search criteria configuration object
 @property {string} location - the eBay location ID to use
 */
 /**
-
 Creates the eBay URL to search for sold items based on the given configuration object
 @param {SearchConfig} config - the search criteria configuration object
 @returns {string} the eBay URL to search for sold items
@@ -57,7 +54,7 @@ async function scrape(url, searchConfig) {
           try {
             const price = td.querySelector('span.s-item__price')?.innerText || null;
             const name = td.querySelector('div.s-item__title')?.innerText.toLowerCase() || null;
-            const date = td.querySelector('div.s-item__title--tagblock')?.innerText.replace('\nObjet vendu', '') || null;
+            const date = td.querySelector('div.s-item__title--tag span.POSITIVE')?.innerText.replace('Vendu le', '') || null;
             const typeSold = td.querySelector('span.s-item__purchaseOptionsWithIcon')?.innerText || null;
             const country = td.querySelector('span.s-item__location.s-item__itemLocation')?.innerText || null;
 
@@ -97,8 +94,6 @@ async function scrape(url, searchConfig) {
       logger.info('[Scrape : items] The file has been saved!');
     }
   });
-
-
 
   await browser.close();
 }

@@ -146,6 +146,7 @@ const transformItem = (item) => {
     console: matchConsoleOfTitle
       ? capitalizeFirstLetterOfEachWord('Nintendo 64')
       : null,
+    dateListed: item.date, // Added date listed from Scrappe.js
   };
 };
 

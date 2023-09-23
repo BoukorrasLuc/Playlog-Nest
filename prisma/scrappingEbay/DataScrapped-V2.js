@@ -1,6 +1,6 @@
 module.exports = [
   {
-    "id": "04c6cac5-f134-4a23-a7da-2674ad88daf0",
+    "id": "217c12cb-03b8-491f-add1-37682bb0e66d",
     "title": "The Legend Of Zelda Ocarina Of Time",
     "priceSold": "200,00",
     "dateSold": null,
@@ -8,10 +8,11 @@ module.exports = [
     "completeness": "Complet",
     "zone": null,
     "ean": null,
-    "console": "Nintendo 64"
+    "console": "Nintendo 64",
+    "dateListed": " 15 sept. 2023"
   },
   {
-    "id": "451217ac-bfa3-4b43-9dc7-07fc9926bc8f",
+    "id": "253d88cb-01bf-4e2c-89fa-0769bb89989b",
     "title": "The Legend Of Zelda Ocarina Of Time",
     "priceSold": "100,00",
     "dateSold": null,
@@ -19,10 +20,11 @@ module.exports = [
     "completeness": "Complet",
     "zone": null,
     "ean": null,
-    "console": "Nintendo 64"
+    "console": "Nintendo 64",
+    "dateListed": " 3 sept. 2023"
   },
   {
-    "id": "4bd2053b-9da0-45b9-8b25-50145936f213",
+    "id": "16014a45-416b-47fd-ae5a-b7553bc2ddfb",
     "title": "The Legend Of Zelda Ocarina Of Time",
     "priceSold": "84,90",
     "dateSold": null,
@@ -30,10 +32,11 @@ module.exports = [
     "completeness": "Complet",
     "zone": "Pal",
     "ean": null,
-    "console": "Nintendo 64"
+    "console": "Nintendo 64",
+    "dateListed": " 26 août 2023"
   },
   {
-    "id": "b73216c9-5661-4b38-a0bf-ae6e11ed7284",
+    "id": "36d72f7e-c256-4ec8-924b-05fba62c0dd5",
     "title": "The Legend Of Zelda Ocarina Of Time",
     "priceSold": "59,90",
     "dateSold": null,
@@ -41,10 +44,11 @@ module.exports = [
     "completeness": "Complet",
     "zone": "Ntsc-j",
     "ean": null,
-    "console": "Nintendo 64"
+    "console": "Nintendo 64",
+    "dateListed": " 21 août 2023"
   },
   {
-    "id": "a16731c9-b2ab-461b-af69-3bab0f9bfec8",
+    "id": "71841d73-641a-4140-8998-5f40487b4570",
     "title": "The Legend Of Zelda Ocarina Of Time",
     "priceSold": "56,90",
     "dateSold": null,
@@ -52,10 +56,11 @@ module.exports = [
     "completeness": "Complet",
     "zone": "Ntsc-j",
     "ean": null,
-    "console": "Nintendo 64"
+    "console": "Nintendo 64",
+    "dateListed": " 2 juil. 2023"
   },
   {
-    "id": "f79c2203-bff4-4624-bc2c-185675b585bb",
+    "id": "03af66b2-3f31-4d5b-92ab-7fcec5682d41",
     "title": "The Legend Of Zelda Ocarina Of Time",
     "priceSold": "65,00",
     "dateSold": null,
@@ -63,10 +68,11 @@ module.exports = [
     "completeness": "Complet",
     "zone": "Pal",
     "ean": null,
-    "console": "Nintendo 64"
+    "console": "Nintendo 64",
+    "dateListed": " 2 juil. 2023"
   },
   {
-    "id": "4df5c525-b438-47f7-8f0d-1d39486269e0",
+    "id": "d1cc9080-92a9-4400-aaa1-31e7c73134da",
     "title": "The Legend Of Zelda Ocarina Of Time",
     "priceSold": "51,00",
     "dateSold": null,
@@ -74,10 +80,11 @@ module.exports = [
     "completeness": "Complet",
     "zone": "Pal",
     "ean": null,
-    "console": "Nintendo 64"
+    "console": "Nintendo 64",
+    "dateListed": " 10 juil. 2023"
   },
   {
-    "id": "749d654b-fe18-4cd3-a131-ff4398e8ac3f",
+    "id": "27917cba-e585-4910-82f0-51f2a4a43066",
     "title": "The Legend Of Zelda Ocarina Of Time",
     "priceSold": "151,00",
     "dateSold": null,
@@ -85,10 +92,11 @@ module.exports = [
     "completeness": "Complet",
     "zone": "Pal",
     "ean": null,
-    "console": "Nintendo 64"
+    "console": "Nintendo 64",
+    "dateListed": " 5 juil. 2023"
   },
   {
-    "id": "cfbb44d0-e43c-463d-849e-cf1a938c3aaf",
+    "id": "1059f6d7-1cd8-494b-bcf7-fc34c2510ce3",
     "title": "The Legend Of Zelda Ocarina Of Time",
     "priceSold": "132,03",
     "dateSold": null,
@@ -96,10 +104,11 @@ module.exports = [
     "completeness": "Complet",
     "zone": null,
     "ean": null,
-    "console": "Nintendo 64"
+    "console": "Nintendo 64",
+    "dateListed": " 8 sept. 2023"
   },
   {
-    "id": "4868e101-6732-431d-824b-489508097e14",
+    "id": "7857792a-44ec-49ce-82bc-7ffe5b42b0c7",
     "title": "Zelda Ocarina Of Time 3d",
     "priceSold": "22,50",
     "dateSold": null,
@@ -107,10 +116,11 @@ module.exports = [
     "completeness": "Complet",
     "zone": "Pal",
     "ean": null,
-    "console": null
+    "console": null,
+    "dateListed": " 27 août 2023"
   },
   {
-    "id": "7f36e9f6-bfa2-4fcc-a9aa-a5a19247955c",
+    "id": "507bf699-5deb-4745-aaba-15779b85683d",
     "title": "The Legend Zelda Ocarina Of Time",
     "priceSold": "85,00",
     "dateSold": null,
@@ -118,6 +128,7 @@ module.exports = [
     "completeness": "Complet",
     "zone": null,
     "ean": null,
-    "console": "Nintendo 64"
+    "console": "Nintendo 64",
+    "dateListed": " 20 août 2023"
   }
 ];
