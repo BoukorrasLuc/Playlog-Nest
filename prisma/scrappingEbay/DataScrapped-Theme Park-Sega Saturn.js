@@ -1,17 +1,23 @@
 const items = [
   {
-    "price": "14,50 EUR",
-    "name": "theme park complet boîte notice panasonic 3do pal euro cib ovp jeu game spiel",
-    "date": " 10 sept. 2023",
-    "typeSold": null,
-    "country": null
+    "title": "Theme Park",
+    "priceSold": "14,50",
+    "dateSold": " 10 sept. 2023",
+    "condition": "Cib",
+    "completeness": "Complet",
+    "zone": "Pal",
+    "ean": null,
+    "console": "Sega Saturn"
   },
   {
-    "price": "24,90 EUR",
-    "name": "theme park - sega megadrive mega drive - complet - pal - très bon etat",
-    "date": " 5 août 2023",
-    "typeSold": "Achat immédiat",
-    "country": null
+    "title": "Theme Park",
+    "priceSold": "24,90",
+    "dateSold": " 5 août 2023",
+    "condition": null,
+    "completeness": "Complet",
+    "zone": "Pal",
+    "ean": null,
+    "console": "Sega Saturn"
   }
 ];
 
