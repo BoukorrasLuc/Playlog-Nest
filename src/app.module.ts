@@ -2,12 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { UserCollectionModule } from './user-collection/user-collection.module';
-import { ItemScrappeDatabaseModule } from './ItemScrappeDatabase/item-scrappe-database.module';
-import { SystemModule } from './system/system.module';
-import { GameModule } from './game/game.module';
-import { AccessoryModule } from './accessory/accessory.module';
-import { PriceDataModule } from './priceData/priceData.module';
+import { UserCollectionModule } from './api/user-collection/user-collection.module';
+import { ItemScrappeDatabaseModule } from './api/ItemScrappeDatabase/item-scrappe-database.module';
+import { SystemModule } from './api/system/system.module';
+import { GameModule } from './api/game/game.module';
+import { AccessoryModule } from './api/accessory/accessory.module';
 import { ScrappingModule } from './scrapping/scrapping.module';
 
 @Module({
@@ -20,7 +19,6 @@ import { ScrappingModule } from './scrapping/scrapping.module';
     SystemModule,
     GameModule,
     AccessoryModule,
-    PriceDataModule,
     ScrappingModule
   ],
 })

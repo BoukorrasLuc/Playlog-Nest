@@ -2,8 +2,10 @@ import { Injectable, Logger } from '@nestjs/common';
 import puppeteer from 'puppeteer';
 import * as fs from 'fs';
 import { Cron, Timeout } from '@nestjs/schedule';
-import { GameService } from '../game/game.service';
-import { v4 as uuidv4 } from 'uuid';
+import { GameService } from '../api/game/game.service';
+import { replaceEtat } from './utils/replaceEtat';
+import { capitalizeFirstLetterOfEachWord } from './utils/capitalizeFirstLetterOfEachWord';
+import { getSpecificText } from './utils/getSpecificText';
 
 @Injectable()
 export class ScrappingService {
@@ -14,7 +16,11 @@ export class ScrappingService {
   async scrapeEbay() {
     const games = await this.gameService.getAll();
 
-    for (const game of games) {
+    // Randomize the starting point in the games array
+    const start = Math.floor(Math.random() * games.length);
+    const gamesRandomOrder = [...games.slice(start), ...games.slice(0, start)];
+
+    for (const game of gamesRandomOrder) {
       const SEARCH_CONFIG = {
         title: game.productName,
         console: game.consoleName,
@@ -89,11 +95,8 @@ export class ScrappingService {
         SEARCH_CONFIG.searchTerm,
         SEARCH_CONFIG.title,
       );
+      let transformedData = [];
 
-      console.log(
-        '🚀 ~ file: scrapping.service.ts:77 ~ ScrappingService ~ scrapeEbay ~ data:',
-        data,
-      );
       if (data.length > 0) {
         const transformedData = data
           .map((item) => {
@@ -117,50 +120,6 @@ export class ScrappingService {
             const regexConsoleName = new RegExp(game.consoleName, 'gi');
             const finalTitle = newTitle.replace(regexConsoleName, '').trim();
 
-            function getSpecificText(text) {
-              const words = text.split(' ');
-
-              let result = '';
-
-              let lastWordHasMoreThanTwoSpaces = false;
-              for (let i = 0; i < words.length; i++) {
-                const currentWord = words[i];
-
-                if (currentWord.trim().length > 0) {
-                  if (lastWordHasMoreThanTwoSpaces) {
-                    break;
-                  } else {
-                    result += `${currentWord} `;
-                  }
-                } else if (
-                  currentWord.trim().length === 0 &&
-                  !lastWordHasMoreThanTwoSpaces
-                ) {
-                  lastWordHasMoreThanTwoSpaces = true;
-                }
-              }
-
-              return result.trim();
-            }
-
-            function capitalizeFirstLetterOfEachWord(text) {
-              const words = text.split(' ');
-
-              const capitalizedWords = words.map(
-                (word) => word.charAt(0).toUpperCase() + word.slice(1),
-              );
-
-              const result = capitalizedWords.join(' ');
-
-              return result;
-            }
-
-            function replaceEtat(str) {
-              str = str.replace(/\b(be)\b/g, 'bon état');
-              str = str.replace(/\b(tbe)\b/g, 'très bon état');
-              return str;
-            }
-
             const transformedItem = {
               title: capitalizeFirstLetterOfEachWord(
                 getSpecificText(finalTitle),
@@ -182,7 +141,7 @@ export class ScrappingService {
               console: game.consoleName,
             };
 
-            // Only return the item if all fields except ean are not null
+
             return Object.values(transformedItem).every(
               (value) => value !== null,
             )
@@ -191,30 +150,27 @@ export class ScrappingService {
           })
           .filter((item) => item !== null);
 
-        if (transformedData.length > 0) {
-          const content = `const items = ${JSON.stringify(
-            transformedData,
-            null,
-            2,
-          )};\n\nmodule.exports = items;\n`;
-          fs.writeFile(
-            `./prisma/scrappingEbay/DataScrapped-${game.productName}-${game.consoleName}.js`,
-            content,
-            (err) => {
-              if (err) {
-                this.logger.error(`[Scrape : items] Error found: ${err}`);
-              } else {
-                this.logger.log(
-                  `[Scrape : items] The file has been saved : ${game.productName} - ${game.consoleName}`,
-                );
+          if (transformedData.length > 0) {
+            for (const item of transformedData) {
+              const gameToUpdate = await this.gameService.getById(game.id);
+              if (gameToUpdate) {
+                await this.gameService.updateById(gameToUpdate.id, {
+                  cibPrice: parseFloat(item.priceSold.replace(',', '.')),
+                  ebayDate: item.dateSold,
+                });
               }
-            },
-          );
-        }
+            }
+          }
       }
 
+      this.logger.log({
+        game: game,
+        data: data,
+        transformedData: transformedData,
+      });
+
       await browser.close();
-      await new Promise((resolve) => setTimeout(resolve, 30000)); // Wait for 1 minute before next iteration
+      await new Promise((resolve) => setTimeout(resolve, 10000));
     }
   }
 }

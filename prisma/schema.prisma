@@ -7,7 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 model User {
   id          Int              @id @default(autoincrement())
   email       String           @unique
@@ -31,22 +30,6 @@ model ItemScrappeDatabase {
   dateSold     DateTime?
 }
 
-model PriceData {
-  id              String  @id
-  asin            String?
-  upc             String?
-  productName     String?
-  consoleName     String?
-  genre           String?
-  releaseDate     String?
-  loosePrice      Int?
-  cibPrice        Int?
-  newPrice        Int?
-  boxOnlyPrice    Int?
-  manualOnlyPrice Int?
-  gradedPrice     Int?
-}
-
 model System {
   id              String           @id
   asin            String?
@@ -61,6 +44,8 @@ model System {
   boxOnlyPrice    Int?
   manualOnlyPrice Int?
   gradedPrice     Int?
+  zone            String?
+  ebayDate        String?
   collections     UserCollection[]
 }
 
@@ -78,6 +63,8 @@ model Accessory {
   boxOnlyPrice    Int?
   manualOnlyPrice Int?
   gradedPrice     Int?
+  zone            String?
+  ebayDate        String?
   collections     UserCollection[]
 }
 
@@ -95,6 +82,8 @@ model Game {
   boxOnlyPrice    Int?
   manualOnlyPrice Int?
   gradedPrice     Int?
+  zone            String?
+  ebayDate        String?
   collections     UserCollection[]
 }
 

@@ -29,23 +29,31 @@ async function seedData() {
   }
 }
 
+// All Price is null 
+
 async function processFileData(prisma, data) {
   for (const item of data) {
-    const {
+    let {
       id,
       upc,
       productName,
       consoleName,
       genre,
       releaseDate,
-      loosePrice,
-      cibPrice,
-      newPrice,
-      boxOnlyPrice,
-      manualOnlyPrice,
-      gradedPrice,
+      // loosePrice,
+      // cibPrice,
+      // newPrice,
+      // boxOnlyPrice,
+      // manualOnlyPrice,
+      // gradedPrice,
       asin,
     } = item;
+
+    let zone = null;
+    if (consoleName.includes("JP") || consoleName.includes("PAL")) {
+      zone = consoleName.includes("JP") ? "JP" : "PAL";
+      consoleName = consoleName.replace(zone, "").trim();
+    }
 
     const itemData = {
       id,
@@ -54,13 +62,14 @@ async function processFileData(prisma, data) {
       consoleName,
       genre,
       releaseDate,
-      loosePrice,
-      cibPrice,
-      newPrice,
-      boxOnlyPrice,
-      manualOnlyPrice,
-      gradedPrice,
+      // loosePrice,
+      // cibPrice,
+      // newPrice,
+      // boxOnlyPrice,
+      // manualOnlyPrice,
+      // gradedPrice,
       asin,
+      zone,
     };
 
     /////////////////////////////// Systems ///////////////////////////////////
