@@ -164,9 +164,9 @@ export class ScrappingService {
       }
 
       this.logger.log({
-        game: game,
-        data: data,
-        transformedData: transformedData,
+        GameInDataBase: game,
+        Scrappe: data,
+        Updated: transformedData,
       });
 
       await browser.close();
