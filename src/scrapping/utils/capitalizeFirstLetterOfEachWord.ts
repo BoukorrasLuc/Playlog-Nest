@@ -1,4 +1,10 @@
-export function capitalizeFirstLetterOfEachWord(text) {
+/**
+ * This function capitalizes the first letter of each word in a given text.
+ * @param text - The text to be capitalized.
+ * @returns The capitalized text.
+ */
+
+export function capitalizeFirstLetterOfEachWord(text: string): string {
   const words = text.split(' ');
 
   const capitalizedWords = words.map(

@@ -6,6 +6,12 @@ import { GameService } from '../api/game/game.service';
 import { replaceEtat } from './utils/replaceEtat';
 import { capitalizeFirstLetterOfEachWord } from './utils/capitalizeFirstLetterOfEachWord';
 import { getSpecificText } from './utils/getSpecificText';
+import { regexZone } from './const/regexZone';
+import { regexCompleteness } from './const/regexCompleteness';
+import { regexCondition } from './const/regexCondition';
+import { regexDeleteElementOfTitle } from './const/regexDeleteElementOfTitle';
+import { UpdateGameDto } from 'src/api/game/dto/game.dto';
+import { Game } from '@prisma/client';
 
 @Injectable()
 export class ScrappingService {
@@ -13,58 +19,65 @@ export class ScrappingService {
   constructor(private gameService: GameService) {}
   // @Cron('0 0 * * *') // Cette tâche s'exécute tous les jours à minuit
   @Cron('*/1 * * * *') // Cette tâche s'exécute tous les minutes
+  // This function scrapes the eBay website for game data
   async scrapeEbay() {
-    const games = await this.gameService.getAll();
+    // Fetch all games from the database
+    const games: Game[] = await this.gameService.getAll();
 
     // Randomize the starting point in the games array
-    const start = Math.floor(Math.random() * games.length);
-    const gamesRandomOrder = [...games.slice(start), ...games.slice(0, start)];
+    const start: number = Math.floor(Math.random() * games.length);
+    const gamesRandomOrder: Game[] = [...games.slice(start), ...games.slice(0, start)];
 
+    // Iterate over each game
     for (const game of gamesRandomOrder) {
-      const SEARCH_CONFIG = {
+      // Define the search configuration for the current game
+      const SEARCH_CONFIG: { title: string, console: string, searchTerm: string, location: string } = {
         title: game.productName,
         console: game.consoleName,
         searchTerm: 'complet',
         location: '1',
       };
 
-      const createUrl = (config) => {
+      // Function to create the URL for the eBay search
+      const createUrl = (config: { title: string, console: string, searchTerm: string, location: string }): string => {
         const { title, console, searchTerm, location } = config;
         return `https://www.ebay.fr/sch/i.html?_from=R40&_nkw=${title}+${console}&_sacat=0&LH_Sold=1&LH_${searchTerm}=1&rt=nc&LH_PrefLoc=${location}`;
       };
 
-      const url = createUrl(SEARCH_CONFIG);
+      // Create the URL and launch the browser
+      const url: string = createUrl(SEARCH_CONFIG);
       const browser = await puppeteer.launch({ headless: 'new' });
       const page = await browser.newPage();
       await page.goto(url);
 
+      // Scrape the data from the eBay page
       const data = await page.evaluate(
-        (searchTerm, title) => {
+        (searchTerm: string, title: string) => {
           const tds = Array.from(document.querySelectorAll('.s-item'));
 
           return tds
             .map((td) => {
               try {
-                const price =
+                const price: string | null =
                   (td.querySelector('span.s-item__price') as HTMLElement)
                     ?.innerText || null;
-                const name =
+                const name: string | null =
                   (
                     td.querySelector('div.s-item__title') as HTMLElement
                   )?.innerText.toLowerCase() || null;
-                const date =
+                const date: string | null =
                   (
                     td.querySelector(
                       'div.s-item__title--tag span.POSITIVE',
                     ) as HTMLElement
                   )?.innerText.replace('Vendu le', '') || null;
-                const typeSold =
+                const typeSold: string | null =
                   (
                     td.querySelector(
                       'span.s-item__purchaseOptionsWithIcon',
                     ) as HTMLElement
                   )?.innerText || null;
-                const country =
+                const country: string | null =
                   (
                     td.querySelector(
                       'span.s-item__location.s-item__itemLocation',
@@ -80,7 +93,7 @@ export class ScrappingService {
                 };
               } catch (error) {
                 this.logger.error(
-                  `[Scrape : items] Error found in map: ${error}`,
+                  `[Scrapping Service] Error found in map: ${error}`,
                 );
                 return null;
               }
@@ -95,23 +108,17 @@ export class ScrappingService {
         SEARCH_CONFIG.searchTerm,
         SEARCH_CONFIG.title,
       );
-      let transformedData = [];
 
+      // If data was found, transform it
       if (data.length > 0) {
         const transformedData = data
           .map((item) => {
-            const regexZone = /(pal|ntsc-j|jap|japan)/i;
             const matchTitleZone = item.name.match(regexZone);
 
-            const regexCompleteness = /(complet|loose|hs)/i;
             const matchTitleCompleteness = item.name.match(regexCompleteness);
 
-            const regexCondition =
-              /(très bon état|tres bon etat|tbe|be|mint|cib)/i;
             const matchCondition = item.name.match(regexCondition);
 
-            const regexDeleteElementOfTitle =
-              /nintendo|complete|complet|-|jeux|jeu|pal|nus|ntsc-j|japan|fah|[]|fra|boîte|notice|n64|Ps1|64|ovp|fr|32x|cib|32 x|(\(|\))|,|retrogaming|32 x|tbe|be|euro|eur|version|neu|japon|jap|limited edition|collector|deluxe|en boite|boite|\b(19[89]\d|2000)\b|\//gi;
             const newTitle = item.name
               .replace(regexDeleteElementOfTitle, '')
               .trim();
@@ -141,7 +148,6 @@ export class ScrappingService {
               console: game.consoleName,
             };
 
-
             return Object.values(transformedItem).every(
               (value) => value !== null,
             )
@@ -150,26 +156,38 @@ export class ScrappingService {
           })
           .filter((item) => item !== null);
 
-          if (transformedData.length > 0) {
-            for (const item of transformedData) {
-              const gameToUpdate = await this.gameService.getById(game.id);
-              if (gameToUpdate.productName === item.title && gameToUpdate.consoleName === item.console  && gameToUpdate.zone == item.zone) {
-                console.log("🚀 ~ file: scrapping.service.ts:155 ~ ScrappingService ~ scrapeEbay ~ item:", item)
-                console.log("🚀 ~ file: scrapping.service.ts:156 ~ ScrappingService ~ scrapeEbay ~ gameToUpdate:", gameToUpdate)
-                await this.gameService.updateById(gameToUpdate.id, {
-                  cibPrice: parseFloat(item.priceSold.replace(',', '.')),
-                  ebayDate: item.dateSold,
-                });
-              }
+        // If transformed data was found, update the game data in the database
+        if (transformedData.length > 0) {
+          for (const item of transformedData) {
+            const gameToUpdate = await this.gameService.getById(game.id);
+
+            // Check if the game to update matches the current item based on title, console, and zone.
+            // If it does, update the game's cibPrice and ebayDate with the item's priceSold and dateSold respectively.
+            // The priceSold is converted from a string to a float, replacing any commas with dots for decimal notation.
+            if (
+              gameToUpdate.productName === item.title &&
+              gameToUpdate.consoleName === item.console &&
+              gameToUpdate.zone == item.zone.toUpperCase()
+            ) {
+
+              this.logger.log(
+                `[Scrapping Service] Item:  ${JSON.stringify(item)}`,
+              );
+              this.logger.log(
+                `[Scrapping Service] GameToUpdate:  ${JSON.stringify(gameToUpdate)}`,
+              );
+              await this.gameService.updateById(gameToUpdate.id, {
+                cibPrice: parseFloat(item.priceSold.replace(',', '.')),
+                ebayDate: item.dateSold,
+              } as UpdateGameDto);
             }
           }
+        }
       }
 
+      // Close the browser and wait for 1 minute before the next iteration
       await browser.close();
-      await new Promise((resolve) => setTimeout(resolve, 60000));
+      await new Promise((resolve) => setTimeout(resolve, 10000));
     }
   }
 }
-
-
-
