@@ -8,7 +8,7 @@ Currently, the focus is on video games, consoles, and accessories.
 
 When running the command `npm run seedP`, not all prices from PriceCharting are added as they are in US prices.
 
-That's why a cron job has been set up to scrape successful sales from eBay. ⚠️ Please note that the current cron job scrapes every 10 seconds per item to get a lot of results for improvement. This could potentially lead to a large amount of data being processed ⚠️.
+That's why a cron job has been set up to scrape successful sales from eBay. ⚠️ Please note that the current cron job scrapes every 10 seconds per item to get a lot of results for improvement. This could potentially lead to a large amount of data being processed and may saturate your computer's memory. Please ensure your system has sufficient resources to handle this load. ⚠️
 
 Initially, the scraping service only dealt with complete boxed video games...
 
