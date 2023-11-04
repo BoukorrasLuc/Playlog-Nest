@@ -191,3 +191,72 @@ export class ScrappingService {
     }
   }
 }
+
+// Todo anaylyser les logs pour améliorer le scrapping 😊
+
+
+// [Nest] 79672  - 04/11/2023 13:26:51     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Conan","priceSold":"31,11","dateSold":" 21 sept. 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:26:51     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45281","asin":"none","upc":"none","productName":"Conan","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2005-04-15","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+// [Nest] 79672  - 04/11/2023 13:26:51     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Conan","priceSold":"24,22","dateSold":" 27 août 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:26:51     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45281","asin":"none","upc":"none","productName":"Conan","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2005-04-15","loosePrice":null,"cibPrice":31,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":" 21 sept. 2023"}
+// [Nest] 79672  - 04/11/2023 13:26:52     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Conan","priceSold":"62,23","dateSold":" 6 août 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:26:52     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45281","asin":"none","upc":"none","productName":"Conan","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2005-04-15","loosePrice":null,"cibPrice":24,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":" 27 août 2023"}
+
+
+
+
+// [Nest] 79672  - 04/11/2023 13:27:04     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Conflict Desert Storm","priceSold":"19,00","dateSold":" 30 août 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:27:04     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45282","asin":"none","upc":"none","productName":"Conflict Desert Storm","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2003-04-17","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+// [Nest] 79672  - 04/11/2023 13:27:04     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Conflict Desert Storm","priceSold":"29,02","dateSold":" 31 oct. 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:27:04     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45282","asin":"none","upc":"none","productName":"Conflict Desert Storm","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2003-04-17","loosePrice":null,"cibPrice":19,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":" 30 août 2023"}
+// [Nest] 79672  - 04/11/2023 13:27:04     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Conflict Desert Storm","priceSold":"8,01","dateSold":" 14 sept. 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:27:04     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45282","asin":"none","upc":"none","productName":"Conflict Desert Storm","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2003-04-17","loosePrice":null,"cibPrice":29,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":" 31 oct. 2023"}
+
+
+// [Nest] 79672  - 04/11/2023 13:27:16     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Conflict Desert Storm 2","priceSold":"10,50","dateSold":" 8 oct. 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:27:16     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45283","asin":"none","upc":"none","productName":"Conflict Desert Storm 2","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2004-02-06","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+// [Nest] 79672  - 04/11/2023 13:27:17     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Conflict Desert Storm 2","priceSold":"4,98","dateSold":" 25 oct. 2023","condition":"Cib","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:27:17     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45283","asin":"none","upc":"none","productName":"Conflict Desert Storm 2","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2004-02-06","loosePrice":null,"cibPrice":10,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":" 8 oct. 2023"}
+
+
+// [Nest] 79672  - 04/11/2023 13:27:41     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Crash Nitro Kart","priceSold":"29,00","dateSold":" 31 août 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:27:41     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45285","asin":"none","upc":"none","productName":"Crash Nitro Kart","consoleName":"Gamecube","genre":"Racing","releaseDate":"2003-11-28","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+// [Nest] 79672  - 04/11/2023 13:27:41     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Crash Nitro Kart","priceSold":"28,28","dateSold":" 8 oct. 2023","condition":"Cib","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:27:41     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45285","asin":"none","upc":"none","productName":"Crash Nitro Kart","consoleName":"Gamecube","genre":"Racing","releaseDate":"2003-11-28","loosePrice":null,"cibPrice":29,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":" 31 août 2023"}
+
+
+// [Nest] 79672  - 04/11/2023 13:27:54     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Crash Tag Team Racing","priceSold":"33,95","dateSold":" 22 août 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:27:54     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45286","asin":"none","upc":"none","productName":"Crash Tag Team Racing","consoleName":"Gamecube","genre":"Racing","releaseDate":"2005-11-11","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+
+
+// [Nest] 79672  - 04/11/2023 13:28:07     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Crazy Taxi","priceSold":"38,50","dateSold":" 18 sept. 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:28:07     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45287","asin":"none","upc":"none","productName":"Crazy Taxi","consoleName":"Gamecube","genre":"Racing","releaseDate":"2002-05-03","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+// [Nest] 79672  - 04/11/2023 13:28:07     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Crazy Taxi","priceSold":"49,99","dateSold":" 22 sept. 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:28:07     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45287","asin":"none","upc":"none","productName":"Crazy Taxi","consoleName":"Gamecube","genre":"Racing","releaseDate":"2002-05-03","loosePrice":null,"cibPrice":38,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":" 18 sept. 2023"}
+
+
+// [Nest] 79672  - 04/11/2023 13:28:18     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Titeuf","priceSold":"19,95","dateSold":" 23 oct. 2023","condition":"Cib","completeness":"Complet","zone":"Pal","console":"GameBoy Color"}
+// [Nest] 79672  - 04/11/2023 13:28:18     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"704641","asin":null,"upc":null,"productName":"Titeuf","consoleName":"GameBoy Color","genre":"Party","releaseDate":"2001-06-07","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+// [Nest] 79672  - 04/11/2023 13:28:18     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Titeuf","priceSold":"24,99","dateSold":" 22 août 2023","condition":"Très Bon État","completeness":"Complet","zone":"Pal","console":"GameBoy Color"}
+// [Nest] 79672  - 04/11/2023 13:28:18     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"704641","asin":null,"upc":null,"productName":"Titeuf","consoleName":"GameBoy Color","genre":"Party","releaseDate":"2001-06-07","loosePrice":null,"cibPrice":19,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":" 23 oct. 2023"}
+
+// [Nest] 79672  - 04/11/2023 13:28:32     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Dancing Stage Mario Mix","priceSold":"34,50","dateSold":" 27 août 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:28:32     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45289","asin":"none","upc":"none","productName":"Dancing Stage Mario Mix","consoleName":"Gamecube","genre":"Other","releaseDate":"2005-10-28","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+
+
+// [Nest] 79672  - 04/11/2023 13:28:44     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Dark Summit","priceSold":"10,00","dateSold":" 8 oct. 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:28:44     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45290","asin":"none","upc":"none","productName":"Dark Summit","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2002-05-24","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+
+
+// [Nest] 79672  - 04/11/2023 13:29:21     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Digimon Rumble Arena 2","priceSold":"46,11","dateSold":" 30 oct. 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:29:21     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45298","asin":"none","upc":"none","productName":"Digimon Rumble Arena 2","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2004-10-15","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+// [Nest] 79672  - 04/11/2023 13:29:21     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Digimon Rumble Arena 2","priceSold":"44,95","dateSold":" 20 août 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:29:21     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45298","asin":"none","upc":"none","productName":"Digimon Rumble Arena 2","consoleName":"Gamecube","genre":"Action & Adventure","releaseDate":"2004-10-15","loosePrice":null,"cibPrice":46,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":" 30 oct. 2023"}
+
+
+// [Nest] 79672  - 04/11/2023 13:29:22     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Theme Park","priceSold":"14,50","dateSold":" 10 sept. 2023","condition":"Cib","completeness":"Complet","zone":"Pal","console":"Sega Saturn"}
+// [Nest] 79672  - 04/11/2023 13:29:22     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"72718","asin":null,"upc":"5015839286971","productName":"Theme Park","consoleName":"Sega Saturn","genre":"Simulation","releaseDate":"1995-10-30","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
+
+
+// [Nest] 79672  - 04/11/2023 13:30:22     LOG [ScrappingService] [Scrapping Service] Item:  {"title":"Disney's Extreme Skate Adventure","priceSold":"22,08","dateSold":" 13 août 2023","condition":"Bon État","completeness":"Complet","zone":"Pal","console":"Gamecube"}
+// [Nest] 79672  - 04/11/2023 13:30:22     LOG [ScrappingService] [Scrapping Service] GameToUpdate:  {"id":"45303","asin":"none","upc":"none","productName":"Disney's Extreme Skate Adventure","consoleName":"Gamecube","genre":"Extreme Sports","releaseDate":"2003-09-05","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
