@@ -1,20 +1,34 @@
-# Projet Playlog Nest
+# Playlog Project
 
-Ce projet a pour but de savoir le prix de votre collection de jeux vidéo. Il regroupe plus de 30 000 items en rapport à l'univers du jeux vidéo, y compris les consoles, les accessoires et les jeux vidéo.
+The primary purpose of this project is to determine the value of your geek collection, mainly focusing on the video game universe. It includes over 30,000 items related to the video game world, including consoles, accessories, and video games. In the future, we plan to expand into the realm of collectible cards, such as Pokemon, Magic, and others.
 
-## Commandes pour lancer le projet backend
+The dataClusterSeed directory is a sorting of data collected from PriceCharting. You can visit their website for more information : https://www.pricecharting.com/
 
-1. Pour construire le projet, utilisez la commande suivante :
+Currently, the focus is on video games, consoles, and accessories.
 
-1.1 Remplacer le fichier env.exemple par votre fichier .env
+When running the command `npm run seedP`, not all prices from PriceCharting are added as they are in US prices.
 
-1.2 Lancer les seed pour alimenter votre base de donnée MySql avec la commande
+That's why a cron job has been set up to scrape successful sales from eBay. ⚠️ Please note that the current cron job scrapes every 10 seconds per item to get a lot of results for improvement. This could potentially lead to a large amount of data being processed ⚠️.
+
+Initially, the scraping service only dealt with complete boxed video games...
+
+This first version is functional. There are a few minor adjustments to be made to improve eBay scraping and updating prices and sales dates on eBay.
+
+The project is named Playlog, a combination of 'player' and 'log' from console.log.
+
+## Commands to launch the backend project
+
+1. To build the project, use the following command:
+
+1.1 Replace the env.example file with your .env file
+
+1.2 Launch the seeds to populate your MySQL database with the command
 
 ```bash
 npm run seedP
 ```
 
-1.3 Lancer la commande suivante pour start le projet en mode watch
+1.3 Run the following command to start the project in watch mode
 
 ```bash
 npm run start:dev

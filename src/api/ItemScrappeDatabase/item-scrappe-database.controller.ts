@@ -7,17 +7,17 @@ export class ItemScrappeDatabaseController {
   constructor(private readonly itemScrappeDatabaseService: ItemScrappeDatabaseService) {}
 
   @Get()
-  findAll() {
+  findAll(): Promise<ItemScrappeDatabaseDto[]> {
     return this.itemScrappeDatabaseService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<ItemScrappeDatabaseDto> {
     return this.itemScrappeDatabaseService.findOne(id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() itemScrappeDatabaseDto: ItemScrappeDatabaseDto) {
+  update(@Param('id') id: string, @Body() itemScrappeDatabaseDto: ItemScrappeDatabaseDto): Promise<ItemScrappeDatabaseDto> {
     return this.itemScrappeDatabaseService.update(id, itemScrappeDatabaseDto);
   }
 
@@ -27,7 +27,7 @@ export class ItemScrappeDatabaseController {
   }
 
   @Post()
-  create(@Body() itemScrappeDatabaseDto: ItemScrappeDatabaseDto) {
+  create(@Body() itemScrappeDatabaseDto: ItemScrappeDatabaseDto): Promise<ItemScrappeDatabaseDto> {
     return this.itemScrappeDatabaseService.create(itemScrappeDatabaseDto);
   }
 }

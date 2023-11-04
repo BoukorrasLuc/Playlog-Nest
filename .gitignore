@@ -39,3 +39,4 @@ lerna-debug.log*
 # Prisma Seed
 /prisma/priceCharting/Data
 /prisma/priceCharting/Utils
+/prisma/priceCharting/cluster.js
