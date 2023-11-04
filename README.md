@@ -41,3 +41,9 @@ npm run seedP
 ```bash
 npm run start:dev
 ```
+
+## Database Schema
+
+For a better understanding of the project, here is the database schema:
+
+![Database Schema](/img/Database.png)
