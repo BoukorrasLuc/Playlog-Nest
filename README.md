@@ -16,19 +16,27 @@ This first version is functional. There are a few minor adjustments to be made t
 
 The project is named Playlog, a combination of 'player' and 'log' from console.log.
 
+😊 All ideas, help, or shares for the project are welcome. 😊
+
 ## Commands to launch the backend project
 
 1. To build the project, use the following command:
 
 1.1 Replace the env.example file with your .env file
 
-1.2 Launch the seeds to populate your MySQL database with the command
+1.2 Install the necessary packages with the command
+
+```bash
+npm install
+```
+
+1.3 Launch the seeds to populate your MySQL database with the command
 
 ```bash
 npm run seedP
 ```
 
-1.3 Run the following command to start the project in watch mode
+1.4 Run the following command to start the project in watch mode
 
 ```bash
 npm run start:dev
