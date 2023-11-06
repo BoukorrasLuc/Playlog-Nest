@@ -47,3 +47,13 @@ npm run start:dev
 For a better understanding of the project, here is the database schema:
 
 ![Database Schema](/img/Database.png)
+
+## Next feature 
+
+1.1: Enhance the eBay scraping process to achieve better results. Make the scraping generic for all item types, including video games, consoles, and accessories.
+
+1.2: Currently, scraping only works for the prices of complete items, but it should also be extended to cover loose items or even empty boxes. In short, there is a lot of room for improvement in this area.
+
+1.3 Redis for Scraping ? 
+
+2.0: Consider providing an SQL file once the majority of item data has been updated.

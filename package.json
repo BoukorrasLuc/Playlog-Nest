@@ -35,7 +35,6 @@
     "@nestjs/schedule": "^3.0.4",
     "@prisma/client": "^5.3.1",
     "bcrypt": "^5.1.1",
-    "chalk": "^5.3.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "puppeteer": "^21.3.4",
