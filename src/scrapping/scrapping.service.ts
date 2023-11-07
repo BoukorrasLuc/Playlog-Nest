@@ -165,7 +165,7 @@ export class ScrappingService {
           );
 
           // Si l'objet n'est pas complet. je ne push pas en base.
-          if (Object.values(transformedItem).some((value) => value !== null || value !== 'condition')) {
+          if (Object.values(transformedItem).every((value) => value !== null)) {
             const gameToUpdate = await this.gameService.getById(game.id);
             // Check if the game to update matches the current item based on title, console, and zone.
             // If it does, update the game's cibPrice and ebayDate with the item's priceSold and dateSold respectively.
@@ -191,7 +191,7 @@ export class ScrappingService {
 
         // Close the browser and wait for 10 sec before the next iteration
         await browser.close();
-        await new Promise((resolve) => setTimeout(resolve, 10000));
+        await new Promise((resolve) => setTimeout(resolve, 60000));
       }
     }
   }
