@@ -13,6 +13,7 @@ import { regexDeleteElementOfTitle } from './const/regexDeleteElementOfTitle';
 import { UpdateGameDto } from 'src/api/game/dto/game.dto';
 import { Game } from '@prisma/client';
 
+
 @Injectable()
 export class ScrappingService {
   private readonly logger = new Logger(ScrappingService.name);
