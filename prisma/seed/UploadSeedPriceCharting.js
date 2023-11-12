@@ -166,6 +166,9 @@ async function processFileData(prisma, data) {
         !excludedGenres.includes(itemData.genre) &&
         !excludedConsoleName.includes(itemData.consoleName)
       ) {
+        if (itemData.zone === "JP") {
+          itemData.zone = "JAP";
+        }
         const existingItem = await prisma.game.findUnique({
           where: { id },
         });

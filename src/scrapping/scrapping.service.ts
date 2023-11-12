@@ -164,18 +164,22 @@ export class ScrappingService {
           if (Object.values(transformedItem).every((value) => value !== null)) {
             const gameToUpdate = await this.gameService.getById(game.id);
 
-            console.log("🚀 ~ file: scrapping.service.ts:167 ~ ScrappingService ~ scrapeEbay ~ transformedItem:", transformedItem)
+            console.log(
+              '🚀 ~ file: scrapping.service.ts:167 ~ ScrappingService ~ scrapeEbay ~ transformedItem:',
+              transformedItem,
+            );
+
             if (
               gameToUpdate.productName === transformedItem.title &&
               gameToUpdate.consoleName === transformedItem.console &&
-              gameToUpdate.zone.toUpperCase() ==
+              gameToUpdate.zone.toUpperCase() ===
                 transformedItem.zone.toUpperCase()
             ) {
               await this.gameService.updateById(gameToUpdate.id, {
                 cibPrice: parseFloat(
                   transformedItem.priceSold.replace(',', '.'),
                 ),
-                ebayDate: transformedItem.dateSold,
+                ebayDate: transformedItem.dateSold.substring(1),
               } as UpdateGameDto);
               await this.logger.log(
                 `[Scrapping Service] This game is update: ${JSON.stringify(
