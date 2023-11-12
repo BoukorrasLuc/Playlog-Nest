@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const { logger } = require("../../src/utils/logger");
+const { logger } = require("../seed/utils/logger");
 const fs = require("fs");
 const path = require("path");
 
@@ -51,7 +51,7 @@ async function processFileData(prisma, data) {
 
     let zone = null;
     if (consoleName.includes("JP") || consoleName.includes("PAL")) {
-      zone = consoleName.includes("JP") ? "JP" : "PAL";
+      zone = consoleName.includes("JP") ? "JAP" : "PAL";
       consoleName = consoleName.replace(zone, "").trim();
     }
 

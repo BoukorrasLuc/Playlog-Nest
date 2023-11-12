@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import puppeteer from 'puppeteer';
-import * as fs from 'fs';
-import { Cron, Timeout } from '@nestjs/schedule';
+import { Cron } from '@nestjs/schedule';
 import { GameService } from '../api/game/game.service';
 import { replaceEtat } from './utils/replaceEtat';
 import { capitalizeFirstLetterOfEachWord } from './utils/capitalizeFirstLetterOfEachWord';
@@ -12,31 +11,33 @@ import { regexCondition } from './const/regexCondition';
 import { regexDeleteElementOfTitle } from './const/regexDeleteElementOfTitle';
 import { UpdateGameDto } from 'src/api/game/dto/game.dto';
 import { Game } from '@prisma/client';
-
+import { LoggerService } from '@nestjs/common';
 
 @Injectable()
 export class ScrappingService {
-  private readonly logger = new Logger(ScrappingService.name);
-  constructor(private gameService: GameService) {}
-  // @Cron('0 0 * * *') // Cette tâche s'exécute tous les jours à minuit
-  @Cron('*/1 * * * *') // Cette tâche s'exécute tous les minutes
+  private readonly logger: LoggerService;
+  constructor(private gameService: GameService) {
+    this.logger = new Logger('ScrappingService');
+    this.logger.log('ScrappingService Initialized');
+  }
+  // @Cron('0 0 * * *') // This task runs every day at midnight
+  @Cron('*/1 * * * *') // This task runs every minute
   // This function scrapes the eBay website for game data
   async scrapeEbay() {
     // Fetch all games from the database
     const games: Game[] = await this.gameService.getAll();
 
-    // Randomize the starting point in the games array
+    // Randomize the starting point in the games array to avoid bias
     const start: number = Math.floor(Math.random() * games.length);
     const gamesRandomOrder: Game[] = [
       ...games.slice(start),
       ...games.slice(0, start),
     ];
 
-    // Iterate over each game 
+    // Iterate over each game
     for (const game of gamesRandomOrder) {
-      // condition just for update game with zone "PAL" //
-      if (game.zone === 'PAL') {
-        console.log("🚀 ~ file: scrapping.service.ts:38 ~ ScrappingService ~ scrapeEbay ~ Game in Database:", game)
+      // Only update games with zone "PAL" or "JP"
+      if (game.zone === 'JP' || game.zone === 'PAL') {
         // Define the search configuration for the current game
         const SEARCH_CONFIG: {
           title: string;
@@ -129,7 +130,6 @@ export class ScrappingService {
         // If data was found, transform it
         if (data.length > 0) {
           const item = data[0];
-          console.log("🚀 ~ file: scrapping.service.ts:134 ~ ScrappingService ~ scrapeEbay ~ Result scrapping:", item)
           const matchTitleZone = item.name.match(regexZone);
 
           const matchTitleCompleteness = item.name.match(regexCompleteness);
@@ -157,43 +157,41 @@ export class ScrappingService {
             zone: matchTitleZone
               ? capitalizeFirstLetterOfEachWord(matchTitleZone[0])
               : null,
-            // ean: null,
             console: game.consoleName,
           };
-          console.log(
-            '🚀 ~ file: scrapping.service.ts:166 ~ ScrappingService ~ scrapeEbay ~ transformedItem:',
-            transformedItem,
-          );
 
-          // Si l'objet n'est pas complet. je ne push pas en base.
+          // If the item is not complete, do not push to the database.
           if (Object.values(transformedItem).every((value) => value !== null)) {
             const gameToUpdate = await this.gameService.getById(game.id);
-            // Check if the game to update matches the current item based on title, console, and zone.
-            // If it does, update the game's cibPrice and ebayDate with the item's priceSold and dateSold respectively.
-            // The priceSold is converted from a string to a float, replacing any commas with dots for decimal notation.
+
+
+
             if (
               gameToUpdate.productName === transformedItem.title &&
               gameToUpdate.consoleName === transformedItem.console &&
-              gameToUpdate.zone.toUpperCase() == transformedItem.zone.toUpperCase()
+              gameToUpdate.zone.toUpperCase() ==
+                transformedItem.zone.toUpperCase()
             ) {
-              console.log(
-                '🚀 ~ file: scrapping.service.ts:180 ~ ScrappingService ~ scrapeEbay ~ Update in database:',
-                gameToUpdate,
-              );
               await this.gameService.updateById(gameToUpdate.id, {
                 cibPrice: parseFloat(
                   transformedItem.priceSold.replace(',', '.'),
                 ),
                 ebayDate: transformedItem.dateSold,
               } as UpdateGameDto);
+              await this.logger.log(
+                `[Scrapping Service] This game is update: ${JSON.stringify(gameToUpdate)}`,
+              );
             }
           }
         }
 
-        // Close the browser and wait for 10 sec before the next iteration
+        // Close the browser and wait for 1 minute before the next iteration
         await browser.close();
         await new Promise((resolve) => setTimeout(resolve, 60000));
       }
     }
   }
 }
+
+
+// Notice Seul : https://www.ebay.fr/sch/i.html?_from=R40&_trksid=p2334524.m570.l1313&_nkw=+notice+seul+gamecube&_sacat=0&LH_TitleDesc=0&_odkw=Metroid+Prime+notice+seul+gamecube&_osacat=0&LH_Complete=1&LH_Sold=1
