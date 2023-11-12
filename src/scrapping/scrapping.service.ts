@@ -164,8 +164,7 @@ export class ScrappingService {
           if (Object.values(transformedItem).every((value) => value !== null)) {
             const gameToUpdate = await this.gameService.getById(game.id);
 
-
-
+            console.log("🚀 ~ file: scrapping.service.ts:167 ~ ScrappingService ~ scrapeEbay ~ transformedItem:", transformedItem)
             if (
               gameToUpdate.productName === transformedItem.title &&
               gameToUpdate.consoleName === transformedItem.console &&
@@ -179,7 +178,9 @@ export class ScrappingService {
                 ebayDate: transformedItem.dateSold,
               } as UpdateGameDto);
               await this.logger.log(
-                `[Scrapping Service] This game is update: ${JSON.stringify(gameToUpdate)}`,
+                `[Scrapping Service] This game is update: ${JSON.stringify(
+                  gameToUpdate,
+                )}`,
               );
             }
           }
@@ -192,6 +193,5 @@ export class ScrappingService {
     }
   }
 }
-
 
 // Notice Seul : https://www.ebay.fr/sch/i.html?_from=R40&_trksid=p2334524.m570.l1313&_nkw=+notice+seul+gamecube&_sacat=0&LH_TitleDesc=0&_odkw=Metroid+Prime+notice+seul+gamecube&_osacat=0&LH_Complete=1&LH_Sold=1

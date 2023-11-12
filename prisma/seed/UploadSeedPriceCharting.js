@@ -72,9 +72,19 @@ async function processFileData(prisma, data) {
       zone,
     };
 
+    if (itemData.zone === "JP") {
+      itemData.zone = "JAP";
+    }
+
+    if (itemData.consoleName.includes("JP")) {
+      itemData.consoleName = itemData.consoleName.replace("JP", "").trim();
+    }
     /////////////////////////////// Systems ///////////////////////////////////
 
     if (itemData.genre === "Systems") {
+      if (itemData.zone === "JP") {
+        itemData.zone = "JAP";
+      }
       const existingItem = await prisma.system.findUnique({
         where: { id },
       });
