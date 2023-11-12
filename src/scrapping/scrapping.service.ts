@@ -36,8 +36,8 @@ export class ScrappingService {
 
     // Iterate over each game
     for (const game of gamesRandomOrder) {
-      // Only update games with zone "PAL" or "JP"
-      if (game.zone === 'JP' || game.zone === 'PAL') {
+      // Only update games with zone "PAL" or "JAP"
+      if (game.zone === 'JAP' || game.zone === 'PAL') {
         // Define the search configuration for the current game
         const SEARCH_CONFIG: {
           title: string;
