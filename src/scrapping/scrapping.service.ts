@@ -170,8 +170,8 @@ export class ScrappingService {
             );
 
             if (
-              gameToUpdate.productName === transformedItem.title &&
-              gameToUpdate.consoleName === transformedItem.console &&
+              gameToUpdate.productName.toUpperCase() === transformedItem.title.toUpperCase() &&
+              gameToUpdate.consoleName.toUpperCase() === transformedItem.console.toUpperCase() &&
               gameToUpdate.zone.toUpperCase() ===
                 transformedItem.zone.toUpperCase()
             ) {
@@ -192,8 +192,9 @@ export class ScrappingService {
 
         // Close the browser and wait for 1 minute before the next iteration
         await browser.close();
-        await new Promise((resolve) => setTimeout(resolve, 60000));
+        await new Promise((resolve) => setTimeout(resolve, 10000));
       }
+      
     }
   }
 }
