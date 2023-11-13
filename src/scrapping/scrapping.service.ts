@@ -159,15 +159,17 @@ export class ScrappingService {
               : null,
             console: game.consoleName,
           };
-
-          // If the item is not complete, do not push to the database.
-          if (Object.values(transformedItem).every((value) => value !== null)) {
-            const gameToUpdate = await this.gameService.getById(game.id);
-
+          
+          
+          const { condition, ...otherProps } = transformedItem;
+          
+          if (Object.values(otherProps).every((value) => value !== null)) {
             console.log(
               '🚀 ~ file: scrapping.service.ts:167 ~ ScrappingService ~ scrapeEbay ~ transformedItem:',
               transformedItem,
             );
+
+            const gameToUpdate = await this.gameService.getById(game.id);
 
             if (
               gameToUpdate.productName.toUpperCase() === transformedItem.title.toUpperCase() &&
