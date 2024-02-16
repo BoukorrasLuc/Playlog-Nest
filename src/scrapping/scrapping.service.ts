@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import puppeteer from 'puppeteer';
 import { Cron } from '@nestjs/schedule';
 import { GameService } from '../api/game/game.service';
@@ -20,9 +20,15 @@ export class ScrappingService {
     this.logger = new Logger('ScrappingService');
     this.logger.log('ScrappingService Initialized');
   }
-  // @Cron('0 0 * * *') // This task runs every day at midnight
-  @Cron('* * * * *') // This task runs every minute
-  // This function scrapes the eBay website for game data
+
+  // // @Cron('0 0 * * *') // This task runs every day at midnight
+  // @Cron('* * * * *') // This task runs every minute
+  // // This function scrapes the eBay website for game data
+
+  async onApplicationBootstrap() {
+    await this.scrapeEbay();
+  }
+
   async scrapeEbay() {
     try {
       // Fetch all games from the database
@@ -38,8 +44,7 @@ export class ScrappingService {
       // Iterate over each game
       for (const game of gamesRandomOrder) {
         // Only update games with zone "PAL" or "JAP"
-        if (game.zone === 'PAL'  || game.zone === 'JAP') {
-          // console.log("🚀 ~ file: scrapping.service.ts:42 ~ ScrappingService ~ scrapeEbay ~ game:", game)
+        if (game.zone === 'PAL' || game.zone === 'JAP') {
           // Define the search configuration for the current game
           const SEARCH_CONFIG: {
             title: string;
@@ -76,14 +81,11 @@ export class ScrappingService {
             const noResultsFound = await page.evaluate(() => {
               return (
                 document.querySelector('.srp-save-null-search__heading')
-                  ?.textContent === "Aucun résultat correspondant n'a été trouvé"
+                  ?.textContent ===
+                "Aucun résultat correspondant n'a été trouvé"
               );
             });
             if (noResultsFound) {
-              // this.logger.log(
-              //   '🚀 ~ file: scrapping.service.ts:76 ~ ScrappingService ~ scrapeEbay ~ noResultsFound:',
-              //   noResultsFound,
-              // );
               continue;
             }
 
@@ -150,12 +152,15 @@ export class ScrappingService {
             if (data.length > 0) {
               const item = data[0];
 
-              
-              if (!item.name.toLocaleLowerCase().includes(game.consoleName.toLocaleLowerCase())) {
+              // If the name of the scraped ad does not include the console name, skip this iteration
+              if (
+                !item.name
+                  .toLocaleLowerCase()
+                  .includes(game.consoleName.toLocaleLowerCase())
+              ) {
                 continue;
               }
-              console.log("🚀 ~ ScrappingService ~ scrapeEbay ~ item:", item)
-              
+
               const matchTitleZone = item.name.match(regexZone);
 
               const matchTitleCompleteness = item.name.match(regexCompleteness);
@@ -193,11 +198,6 @@ export class ScrappingService {
               const { condition, ...otherProps } = transformedItem;
 
               if (Object.values(otherProps).every((value) => value !== null)) {
-                // this.logger.log(
-                //   '🚀 ~ file: scrapping.service.ts:167 ~ ScrappingService ~ scrapeEbay ~ transformedItem:',
-                //   transformedItem,
-                // );
-
                 const gameToUpdate = await this.gameService.getById(game.id);
 
                 if (
@@ -223,7 +223,6 @@ export class ScrappingService {
               }
             }
 
-            // Close the browser and wait for 1 minute before the next iteration
             await browser.close();
             // await new Promise((resolve) => setTimeout(resolve, 1000));
           } catch (error) {
@@ -246,4 +245,3 @@ export class ScrappingService {
     }
   }
 }
-
