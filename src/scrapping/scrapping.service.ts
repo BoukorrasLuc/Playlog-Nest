@@ -38,7 +38,7 @@ export class ScrappingService {
       // Iterate over each game
       for (const game of gamesRandomOrder) {
         // Only update games with zone "PAL" or "JAP"
-        if (game.zone === 'PAL') {
+        if (game.zone === 'PAL'  || game.zone === 'JAP') {
           // console.log("🚀 ~ file: scrapping.service.ts:42 ~ ScrappingService ~ scrapeEbay ~ game:", game)
           // Define the search configuration for the current game
           const SEARCH_CONFIG: {
@@ -149,6 +149,13 @@ export class ScrappingService {
             // If data was found, transform it
             if (data.length > 0) {
               const item = data[0];
+
+              
+              if (!item.name.toLocaleLowerCase().includes(game.consoleName.toLocaleLowerCase())) {
+                continue;
+              }
+              console.log("🚀 ~ ScrappingService ~ scrapeEbay ~ item:", item)
+              
               const matchTitleZone = item.name.match(regexZone);
 
               const matchTitleCompleteness = item.name.match(regexCompleteness);
@@ -240,16 +247,3 @@ export class ScrappingService {
   }
 }
 
-// Dernier test sur dix resultats après vérification sur ebay: 
-
-// ✅ [Nest] 24841  - 15/02/2024 19:09:38     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"2070569","asin":null,"upc":"5030917132179","productName":"Angry Birds Star Wars","consoleName":"Nintendo 3DS","genre":"Arcade","releaseDate":"2013-11-01","loosePrice":null,"cibPrice":22.07,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":"3 sept. 2023"}
-// ⚠️ Pas la Bonne console, il a trouvé une wii u à la place [Nest] 24841  - 15/02/2024 19:10:17     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"2250861","asin":null,"upc":null,"productName":"Angry Birds Trilogy","consoleName":"Nintendo 3DS","genre":"Puzzle","releaseDate":"2012-08-25","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"PAL","ebayDate":null}
-// ✅ [Nest] 24841  - 15/02/2024 19:10:55     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"52837","asin":"none","upc":"4944076000471","productName":"Cotton Boomerang","consoleName":"Sega Saturn","genre":"Shoot'em Up","releaseDate":"1998-01-01","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"JAP","ebayDate":null}
-// ✅ [Nest] 24841  - 15/02/2024 19:10:57     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"52886","asin":"none","upc":"4974365091897","productName":"Deep Fear","consoleName":"Sega Saturn","genre":"Action & Adventure","releaseDate":"1998-07-16","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"JAP","ebayDate":null}
-// ✅ [Nest] 24841  - 15/02/2024 19:10:59     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"52915","asin":"none","upc":"none","productName":"DoDonPachi","consoleName":"Sega Saturn","genre":"Action & Adventure","releaseDate":"1998-01-01","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"JAP","ebayDate":null}
-// ✅ [Nest] 24841  - 15/02/2024 19:11:02     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"52916","asin":"none","upc":"none","productName":"DonPachi","consoleName":"Sega Saturn","genre":"Shoot'em Up","releaseDate":"1996-01-01","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"JAP","ebayDate":null}
-// ✅ [Nest] 24841  - 15/02/2024 19:11:15     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"52989","asin":"B000069U6B","upc":"none","productName":"Layer Section","consoleName":"Sega Saturn","genre":"Shoot'em Up","releaseDate":"1995-09-14","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"JAP","ebayDate":null}
-// ✅ [Nest] 24841  - 15/02/2024 19:11:45     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"53219","asin":"none","upc":"4964808200030","productName":"Metal Slug","consoleName":"Sega Saturn","genre":"Action & Adventure","releaseDate":"1997-04-04","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"JAP","ebayDate":null}
-// ✅ [Nest] 24841  - 15/02/2024 19:11:55     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"53291","asin":"B000069T74","upc":"4974365090494","productName":"Panzer Dragoon II Zwei","consoleName":"Sega Saturn","genre":"Action & Adventure","releaseDate":"1996-03-22","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"JAP","ebayDate":null}
-// ✅ [Nest] 24841  - 15/02/2024 19:12:00     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"53306","asin":"B000069TX4","upc":"4988602017663","productName":"Policenauts","consoleName":"Sega Saturn","genre":"Action & Adventure","releaseDate":"1998-09-13","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"JAP","ebayDate":null}
-// ✅ [Nest] 24841  - 15/02/2024 19:12:23     LOG [ScrappingService] [Scrapping Service] This game is update: {"id":"53508","asin":"none","upc":"4984995800073","productName":"Strikers 1945","consoleName":"Sega Saturn","genre":"Shoot'em Up","releaseDate":"1996-06-28","loosePrice":null,"cibPrice":null,"newPrice":null,"boxOnlyPrice":null,"manualOnlyPrice":null,"gradedPrice":null,"zone":"JAP","ebayDate":null}
