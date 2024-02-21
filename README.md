@@ -54,16 +54,13 @@ complete video games : 166/168 (95%)
 
 ## Next feature 
 
-✅ 1.1.1: Enhance the eBay scraping process to achieve better results. Make the scraping generic for all item types, including video games. 
+✅ 1.1.1: Improve eBay's scraping process to get better results for full-featured video games 
 
-1.1.2: Enhance the eBay scraping process to achieve better results. Make the scraping generic for all item types, including consoles.
+🚧 1.1.1.1: Improve eBay's scraping process to get better results for video game manuals. 
 
-1.1.3: Enhance the eBay scraping process to achieve better results. Make the scraping generic for all item types, including accessories.
+1.1.2: Improve eBay's scraping process to get better results for consoles.
 
-1.2: Currently, scraping only works for the prices of complete items, but it should also be extended to cover loose items or even empty boxes. In short, there is a lot of room for improvement in this area.
+1.1.3: Improve eBay's scraping process to get better results for accessories.
 
-1.3 Redis for Scraping ? 
-
-2.0: Consider providing an SQL file once the majority of item data has been updated.
 
 

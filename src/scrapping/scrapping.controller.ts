@@ -7,6 +7,6 @@ export class ScrappingController {
 
   @Get()
   async scrapeEbay() {
-    return this.scrappingService.scrapeEbay();
+    return this.scrappingService.scrapeEbayVideoGamesManualOnly();
   }
 }
