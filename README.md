@@ -48,6 +48,10 @@ For a better understanding of the project, here is the database schema:
 
 ![Database Schema](/img/Database.png)
 
+## Scraping result currently
+
+complete video games : 166/168 (95%)
+
 ## Next feature 
 
 ✅ 1.1.1: Enhance the eBay scraping process to achieve better results. Make the scraping generic for all item types, including video games. 
