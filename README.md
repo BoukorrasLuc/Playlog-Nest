@@ -1,4 +1,4 @@
-# Playlog Project
+# Playlog Project 🏴󠁧󠁢󠁥󠁮󠁧󠁿
 
 The primary purpose of this project is to determine the value of your geek collection, mainly focusing on the video game universe. It includes over 30,000 items related to the video game world, including consoles, accessories, and video games. In the future, we plan to expand into the realm of collectible cards, such as Pokemon, Magic, and others.
 
@@ -52,11 +52,23 @@ For a better understanding of the project, here is the database schema:
 
 complete video games : 166/168 (95%)
 
+manual video games :  (100%)
+
 ## Next feature 
 
 ✅ 1.1.1: Improve eBay's scraping process to get better results for full-featured video games 
 
-🚧 1.1.1.1: Improve eBay's scraping process to get better results for video game manuals. 
+🚧 1.1.1.1: Improve eBay's scraping process to get better results for video game manuals only. 
+
+🚧 1.1.1.2: Add the eBay scraping process to get better results for video game box only. 
+
+🚧 1.1.1.3: Add the eBay scraping process to get better results for new video games only.
+
+🚧 1.1.1.4: Add the eBay scraping process to get better results for new video games only.
+
+🚧 1.1.1.5: Add the eBay scraping process to get better results for graded video games only.
+
+🚧 1.1.1.5: Add the eBay scraping process to get better results for loose video games only.
 
 1.1.2: Improve eBay's scraping process to get better results for consoles.
 
@@ -64,3 +76,4 @@ complete video games : 166/168 (95%)
 
 
 
+Version 0.0.1

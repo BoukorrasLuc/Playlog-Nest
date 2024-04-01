@@ -7,6 +7,9 @@ export class ScrappingController {
 
   @Get()
   async scrapeEbay() {
-    return this.scrappingService.scrapeEbayVideoGamesManualOnly();
+    const gamesRandomOrder = await this.scrappingService.itemOfDatabase();
+    const manualOnly = this.scrappingService.scrapeEbayVideoGamesManualOnly(gamesRandomOrder);
+    const complete = this.scrappingService.scrapeEbayVideoGamesComplete(gamesRandomOrder);
+    return Promise.all([manualOnly, complete]);
   }
 }
