@@ -22,7 +22,7 @@ const logger = createLogger({
     format.json()
   ),
   transports: [
-    new transports.File({ filename: 'logs.json' })
+    new transports.File({ filename: 'src/scrapping/.logs.json' })
   ]
 });
 
