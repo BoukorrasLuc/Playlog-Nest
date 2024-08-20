@@ -51,8 +51,8 @@ For a better understanding of the project, here is the database schema:
 ## Scraping result currently
 
 complete video games : 166/168 (95%)
-
-manual video games :  (100%)
+Manual video games only: Still being tested
+Boxed video games only: Still being tested
 
 ## Next feature 
 
