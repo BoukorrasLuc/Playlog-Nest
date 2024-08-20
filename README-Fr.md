@@ -50,8 +50,8 @@ Pour une meilleure compréhension du projet, voici le schéma de la base de donn
 
 ## Résultat du scraping actuellement
 Jeux vidéo complets : 166/168 (95%)
-Jeux vidéo manuels : (100%)
-
+Jeux vidéo manuels seul : Encore en test
+Jeux vidéo boite seul : Encore en test
 
 ## Prochaine fonctionnalité
 
